@@ -22,7 +22,7 @@ The polygon command associates an identifier with a convex polygon made by a set
 
 #### Print commmand
 
-The print command prints the name and the vertices of a given polygon. The output contains just the vertices in the convex hull of the polygon, in clockwise order, starting from the vertex will lower X (and the vertex with lower Y in case of ties). They are printed in a single line, with one space separating each value.
+The print command prints the name and the vertices of a given polygon. The output contains just the vertices in the convex hull of the polygon, in clockwise order, starting from the vertex with lower X (and the vertex with lower Y in case of ties). They are printed in a single line, with one space separating each value.
 
 #### 1. Area command
 
