@@ -1,0 +1,25 @@
+# sample script for the polygon calculator
+polygon p1 0 0  0 1  1 1
+print p1
+area p1
+perimeter p1
+vertices p1
+centroid p1
+save file1.txt p1
+load file2.txt
+list
+print p1
+print p2
+print p3
+union p3 p1 p2
+print p3
+inside p1 p3
+setcol p1 1 0 0
+setcol p2 0 1 0
+setcol p3 0 0 1
+draw image1.png p1 p2 p3
+bbox p4 p1 p2
+print p4
+# some errors
+foobar
+print p5
