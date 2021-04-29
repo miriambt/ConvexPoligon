@@ -353,8 +353,8 @@ bool ConvexPolygon::PointInsidePolygon(Point p) const {
 	int count = 0; 							
 	Point intersection;					
 	
-	/** If "p" is collinear with line segment 'i-j', we check whether it lies on segment or not. If it does, we've finished.
-		Otherwise, if the infinite line intersects the segment 'i-j', we increase the counter. */
+	/* If "p" is collinear with line segment 'i-j', we check whether it lies on the segment or not. If it does, we've finished.
+	Otherwise, if the infinite line intersects the segment 'i-j', we increase the counter. */
     int j = _points.size() - 1; 
 	bool foundOnSegment = false;
 	for (int i = 0; i < _points.size() and not foundOnSegment; ++i) {
@@ -371,9 +371,9 @@ bool ConvexPolygon::PointInsidePolygon(Point p) const {
 	return (count%2) == 1;  
 }
 
-/** First, we check wheter the points of the first polygon (p1) are inside the second one (p2). In this case, we push them into the new vector "points", that will define the intersection Polygon. 
-	Next, we calculate the intersection points between the edges of the first and the second polygon and push them into the vector "points".
-	Finally, we check wheter the points of the second polygon are inside the first one. In this case, we push them into the vector "points". */
+/* First, we check whether the points of the first polygon (p1) are inside the second one (p2). In this case, we push them into the new vector "points", that will define the intersection of Polygon. 
+Next, we calculate the intersection points between the edges of the first and the second polygon and push them into the vector "points".
+Finally, we check whether the points of the second polygon are inside the first one. In this case, we push them into the vector "points". */
 ConvexPolygon ConvexPolygon::getIntersection(ConvexPolygon& p1, ConvexPolygon& p2) const{
 	vector<Point> points;
 	Point intersection;
@@ -403,8 +403,8 @@ ConvexPolygon ConvexPolygon::getIntersection(ConvexPolygon& p1, ConvexPolygon& p
 	return intersectionPolygon;
 }
 
-/** We make a new vector "points" that contains both the points in the first given ConvexPolygon (p1) and the points in the second given ConvexPolygon (p2).
-	Finally, we create a new polygon "unionPolygon", that will be defined by the ConvexHull of the vector "points". */
+/* We make a new vector "points" that contains both the points in the first given ConvexPolygon (p1) and the points in the second given ConvexPolygon (p2).
+Finally, we create a new polygon "unionPolygon", that will be defined by the ConvexHull of the vector "points". */
 ConvexPolygon ConvexPolygon::getUnion(ConvexPolygon& p1, ConvexPolygon& p2) const{
 	vector<Point> points = p1._points;
 	for (int i = 0; i < p2._points.size(); ++i) {
@@ -415,9 +415,9 @@ ConvexPolygon ConvexPolygon::getUnion(ConvexPolygon& p1, ConvexPolygon& p2) cons
 	return unionPolygon;
 }
 
-/** We check wheter all the vertices of the given ConvexPolygon are inside the own ConvexPolyogn
-	If we find a point which is not inside it, we return "false". 
-	Otherwise, we return "true". */
+/* We check whether all the vertices of the given ConvexPolygon are inside the own ConvexPolyogn.
+If we find a point that is not inside it, we return "false". 
+Otherwise, we return "true". */
 bool ConvexPolygon::inside(ConvexPolygon secondPolygon) const {
 	for (int i = 0; i < _points.size(); ++i) {
 		if (not secondPolygon.PointInsidePolygon(_points[i])) {
@@ -426,9 +426,9 @@ bool ConvexPolygon::inside(ConvexPolygon secondPolygon) const {
 	}  return true;
 }
 
-/** we calculate the distance between the given point "p" and the point (250, 250).
-	If it is bigger thasn "maxDistance", then we've found a point that is farther: "fartesPoint" becomes the point "p", +
-	and "maxDistance" will store the value of the recently distance calculated. */
+/* We calculate the distance between the given point "p" and the point (250, 250).
+If it is bigger than "maxDistance", then we've found a point that is farther: "fartesPoint" becomes the point "p", +
+and "maxDistance" will store the value of the recently calculated distance. */
 void ConvexPolygon::getFarthestPoint(Point p, Point& farthestPoint, double& maxDistance) const {
 	double dx = p.get_x() - 250;
 	double dy = p.get_y() - 250;
@@ -440,11 +440,11 @@ void ConvexPolygon::getFarthestPoint(Point p, Point& farthestPoint, double& maxD
 	}
 }
 
-/** We first check whether the "farthesPoint" is inside the framework or not: 
-	In case it is inside, we check which of the edges will intersect the segment that goes from "farthestPoint to the center (250, 250), when scaled,
-	and according to that, we find the "intersection" point. 
-	In case it is outside, we go through all the edges of the framework until we find the one that intersects the segment that goes from "farthestPoint to the center (250, 250).
-	Whhen found, we store in the variable "intersection" the intersection point. */
+/* We first check whether the "farthesPoint" is inside the framework or not: 
+In case it is inside, we check which of the edges will intersect the segment that goes from "farthestPoint to the center (250, 250), when scaled,
+and according to that, we find the "intersection" point. 
+In case it is outside, we go through all the edges of the framework until we find the one that intersects the segment that goes from "farthestPoint to the center (250, 250).
+When found, we store in the variable "intersection" the intersection point. */
 double ConvexPolygon::getCenteredScaleFactor(Point farthestPoint, ConvexPolygon framework, Point center) const{
 	Point intersection;																		  																					
     if (framework.PointInsidePolygon(farthestPoint)) {	
@@ -454,19 +454,19 @@ double ConvexPolygon::getCenteredScaleFactor(Point farthestPoint, ConvexPolygon 
 		double n = y - m*x;
 		if (x > 250 and y <= x and y >= -x + 500) {  
 			double point_y = m*499 + n;     
-			intersection = {499, point_y};    /** It intersects the edge that goes from (499, 1) to (499, 499) */
+			intersection = {499, point_y};    // It intersects the edge that goes from (499, 1) to (499, 499).
 		} 
 		else if (y > 250 and x >= 500 - y and x <= y) {  
 			double point_x = (499 - n)/m;  
-			intersection = {point_x, 499};    /** It intersects the edge that goes from (1, 499) to (499, 499) */
+			intersection = {point_x, 499};    // It intersects the edge that goes from (1, 499) to (499, 499).
 		} 
 		else if (x < 250 and y <= (-x + 500) and y >= x) { 
 			double point_y = m + n;  
-			intersection = {1, point_y};      /** It intersects the edge that goes from (1, 1) to (1, 499) */
+			intersection = {1, point_y};      // It intersects the edge that goes from (1, 1) to (1, 499).
 		} 
 		else if (y < 250 and x >= y and x <= 500 - y) { 
 			double point_x = (1 - n)/m;
-			intersection = {point_x, 1};      /** It intersects the edge that goes from (1, 1) to (499, 1) */
+			intersection = {point_x, 1};      // It intersects the edge that goes from (1, 1) to (499, 1).
 		}
 
 	} else {
@@ -482,9 +482,9 @@ double ConvexPolygon::getCenteredScaleFactor(Point farthestPoint, ConvexPolygon 
 	return scaleFactor;
 }
 
-/** First, we go through all the points of the given vector with the objective of finding which point is farther from the center (250, 250), 
-	and store it in the point "farthestPoint". Next, we calculate the "scaleFactor". Finally, we apply the scaleFactor to all the points in the vector, 
-	so that we obtain a new reduced or grown ConvexPolygon, which fits in a 498x498 square. */
+/* First, we go through all the points of the given vector to find which point is farther from the center (250, 250), 
+and store it in the point "farthestPoint". Next, we calculate the "scaleFactor". Finally, we apply the scaleFactor to all the points in the vector, 
+so that we obtain a new reduced or grown ConvexPolygon, which fits in a 498x498 square. */
 void ConvexPolygon::scaleCenteredPolygon(vector<Point>& newpoints) {
 	Point centroid = getCentroid();
 	double dx = 250 - centroid.get_x();    
@@ -520,8 +520,8 @@ void ConvexPolygon::scaleCenteredPolygon(vector<Point>& newpoints) {
 	}
 }
 
-/** We create a copy of the vector of points.
-    We scale the points of the new vector and then draw edge by edge in a PNG file, with its associated color. */
+/* We create a copy of the vector of points.
+We scale the points of the new vector and then draw edge by edge in a PNG file, with its associated color. */
 void ConvexPolygon::drawCenteredPolygon(vector<double> colors, pngwriter& png) {
 	vector<Point> newpoints = _points;
 	scaleCenteredPolygon(newpoints);
